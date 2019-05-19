@@ -1,0 +1,408 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Zenplate 0.2.2</title>
+    
+    <style>
+      .no-js {
+        visibility: hidden;
+        opacity: 0;
+      }
+      .js {
+        visibility: visible;
+        opacity: 1;
+      }
+      body.loading {
+        background-color: purple;
+      }
+      #loader {
+        position: fixed;
+        z-index: 1100;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background-color: purple;
+        transition: opacity 500ms;
+        opacity: 0;
+      }
+      #loader.visible {
+        opacity: 1;
+      }
+      #loader img {
+        display:block;
+        width: 400px;
+        height: 356px;
+        position: relative;
+        margin: auto;
+        top: 50%;
+        margin-top: -178px;
+        animation: appear 1s, 2s floating infinite ease-in-out;
+        visibility: visible;
+        opacity: 1;  
+      }
+      #loader img.hidden {
+        visibility: hidden;
+        opacity: 0;
+      }
+      #loader img.removed {
+        display: none;
+      }
+      #wrapper {
+        visibility: visible;
+        opacity: 1;
+      }
+      #wrapper.hidden {
+        visibility: hidden;
+        opacity: 0;
+      }
+      img {
+        max-width: 100%;
+      }
+      @keyframes appear {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      @keyframes floating {
+        from {
+          transform: translate(0, 0px);
+        }
+        50% {
+          transform: translate(0, -25px);
+        }
+        to {
+          transform: translate(0, 0px);
+        }
+      }
+      
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style> 
+    
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    <!-- Custom styles for this template -->
+    <link href="navbar-top.css"  rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link href="zenplate.css"  rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+		<script>
+			(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement);
+      
+      /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+      /* This file is meant as a standalone workflow for
+      - testing support for link[rel=preload]
+      - enabling async CSS loading in browsers that do not support rel=preload
+      - applying rel preload css once loaded, whether supported or not.
+      */
+      (function( w ){
+        "use strict";
+        // rel=preload support test
+        if( !w.loadCSS ){
+          w.loadCSS = function(){};
+        }
+        // define on the loadCSS obj
+        var rp = loadCSS.relpreload = {};
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function(){
+          var ret;
+          try {
+            ret = w.document.createElement( "link" ).relList.supports( "preload" );
+          } catch (e) {
+            ret = false;
+          }
+          return function(){
+            return ret;
+          };
+        })();
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function( link ){
+          // remember existing media attr for ultimate state, or default to 'all'
+          var finalMedia = link.media || "all";
+
+          function enableStylesheet(){
+            link.media = finalMedia;
+          }
+
+          // bind load handlers to enable media
+          if( link.addEventListener ){
+            link.addEventListener( "load", enableStylesheet );
+          } else if( link.attachEvent ){
+            link.attachEvent( "onload", enableStylesheet );
+          }
+
+          // Set rel and non-applicable media type to start an async request
+          // note: timeout allows this to happen async to let rendering continue in IE
+          setTimeout(function(){
+            link.rel = "stylesheet";
+            link.media = "only x";
+          });
+          // also enable media after 3 seconds,
+          // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+          setTimeout( enableStylesheet, 3000 );
+        };
+
+        // loop through link elements in DOM
+        rp.poly = function(){
+          // double check this to prevent external calls from running
+          if( rp.support() ){
+            return;
+          }
+          var links = w.document.getElementsByTagName( "link" );
+          for( var i = 0; i < links.length; i++ ){
+            var link = links[ i ];
+            // qualify links to those with rel=preload and as=style attrs
+            if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+              // prevent rerunning on link
+              link.setAttribute( "data-loadcss", true );
+              // bind listeners to toggle media back
+              rp.bindMediaToggle( link );
+            }
+          }
+        };
+
+        // if unsupported, run the polyfill
+        if( !rp.support() ){
+          // run once at least
+          rp.poly();
+
+          // rerun poly on an interval until onload
+          var run = w.setInterval( rp.poly, 500 );
+          if( w.addEventListener ){
+            w.addEventListener( "load", function(){
+              rp.poly();
+              w.clearInterval( run );
+            } );
+          } else if( w.attachEvent ){
+            w.attachEvent( "onload", function(){
+              rp.poly();
+              w.clearInterval( run );
+            } );
+          }
+        }
+
+
+        // commonjs
+        if( typeof exports !== "undefined" ){
+          exports.loadCSS = loadCSS;
+        }
+        else {
+          w.loadCSS = loadCSS;
+        }
+      }( typeof global !== "undefined" ? global : this ) );
+
+		</script>
+  </head>
+  <body class="loading">
+    <div id="loader" class="visible">
+        <img class="hidden" src="img/400x356.png">
+    </div>
+    <div id="wrapper" class="hidden"> 
+      <div class="sn-static">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container mobile-navbar">
+              <a class="navbar-brand mx-auto" href="index.html">
+                Top Navbar
+              </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+          </div>
+          <div id="navbarCollapse" class="collapse navbar-collapse w-100">
+            <div class="container d-flex flex-column flex-lg-row justify-content-between">
+              <ul class="navbar-nav ml-auto w-100 order-1 order-lg-0 justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Link</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="index-2.html">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>                
+                <li class="nav-item dropdown jqui-slide">
+                  <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <div>
+                      <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#"><div>Action</div></a>
+                        <a class="dropdown-item" href="#"><div>Another action</div></a>
+                        <a class="dropdown-item" href="#"><div>Something else here</div></a>
+                      </div>
+                    </div>
+                </li>	
+              </ul>
+              <div class="desktop-navbar-brand order-0 order-lg-1">
+                  <a class="navbar-brand mx-auto" href="index.html">
+                    Top Navbar
+                  </a>
+              </div>
+              <ul class="navbar-nav mr-auto w-100 order-2 order-lg-2">
+                <li class="nav-item dropdown jqui-slide">
+                  <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <div>
+                      <div class="dropdown-menu" aria-labelledby="dropdown02">
+                        <a class="dropdown-item" href="#"><div>Action</div></a>
+                        <a class="dropdown-item" href="#"><div>Another action</div></a>
+                        <a class="dropdown-item" href="#"><div>Something else here</div></a>
+                      </div>
+                    </div>
+                </li>	
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown jqui-slide">
+                  <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-search"></i></a>
+                  <div>
+                    <div class="dropdown-menu" aria-labelledby="dropdown03">
+                      <form class="form-inline">
+                        <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                      </form>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item cart">
+                  <a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i></a>
+                </li>
+              </ul>
+              <button type="button" class="btn btn-primary order-3 order-lg-3">Primary</button>
+            </div>
+          </div>
+        </nav>
+      </div>
+      
+      <main role="main">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="img"><img src="img/1.jpg" class="img-fluid"></div>
+              <div class="container">
+                <div class="carousel-caption text-left">
+                  <h1>Example headline.</h1>
+                  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                  <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="img"><img src="img/2.jpg" class="img-fluid"></div>
+              <div class="container">
+                <div class="carousel-caption">
+                  <h1>Another example headline.</h1>
+                  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                  <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="img"><img src="img/3.jpg" class="img-fluid"></div>
+              <div class="container">
+                <div class="carousel-caption text-right">
+                  <h1>One more for good measure.</h1>
+                  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                  <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="container">
+          <p class="float-right"><a href="#">Back to top</a></p>
+          <p>&copy; 2017-2019 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        </footer>
+      </main>
+      
+    </div>
+    <script src="js/preloadr.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+		<script>
+      /* Slidenav 4.0.0-alpha ( https://github.com/tightcode/slidenav ) */
+
+      // CSS media feature is used to detect if the user has requested that the system minimize the amount of animation or motion it uses
+      var mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      var slideSpeed = 350;
+
+      var slideSpeedInit = function () {
+          if (mediaQuery.matches) {
+              slideSpeed = 1;
+          } else {
+              slideSpeed = 350;
+          }
+      };
+
+      window.addEventListener("load", slideSpeedInit);
+      mediaQuery.addEventListener("change", slideSpeedInit);
+
+      // Jquery slide effect
+      $('.jq-slide').on('show.bs.dropdown', function() {
+        $(this).find('.dropdown-menu').first().stop(true, true).slideDown(slideSpeed);
+      });
+      $('.jq-slide').on('hide.bs.dropdown', function() {
+        $(this).find('.dropdown-menu').first().stop(true, true).slideUp(slideSpeed);
+      });
+
+      // JqueryUI slide effect
+      $('.jqui-slide').on('show.bs.dropdown', function() {
+        if (window.matchMedia("(max-width: 991.98px)").matches) {
+          $(this).find('.dropdown-menu').first().stop(true, true).slideDown(slideSpeed);
+        } else {
+          $(this).find('.dropdown-menu').first().stop(true, true).show("slide", {
+            direction: 'up'
+          }, slideSpeed);
+        }
+      });
+      $('.jqui-slide').on('hide.bs.dropdown', function() {
+        if (window.matchMedia("(max-width: 991.98px)").matches) {
+          $(this).find('.dropdown-menu').first().stop(true, true).slideUp(slideSpeed);
+        } else {
+          $(this).find('.dropdown-menu').first().stop(true, true).hide("slide", {
+            direction: 'up'
+          }, slideSpeed);
+        }
+      });	
+		</script>
+  </body>
+</html>
