@@ -1,3 +1,8 @@
+/* Centerslidenav 0.1.0 ( https://github.com/tightcode/centerslidenav ) */
+// changed breakpoint from md to lg
+
+
+
 /* Slidenav 4.0.0-alpha.1 ( https://github.com/tightcode/slidenav ) */
 
 // CSS media feature is used to detect if the user has requested that the system minimize the amount of animation or motion it uses
@@ -42,8 +47,3 @@ $('.jqui-slide').on('hide.bs.dropdown', function() {
     }, slideSpeed);
   }
 });
-
-
-
-/* Zennav 4.0.0-alpha ( https://github.com/tightcode/zennav ) */
-// changed breakpoint from md to lg in Slidenav
