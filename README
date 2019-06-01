@@ -1,0 +1,22 @@
+Zenplate
+
+What the project is for
+  Multi-page template by tightcode. Featuring preloadr, Flex-carousel and Zennav all developed by tightcode.
+Built with
+  preloadr ( https://github.com/tightcode/preloadr )
+  Bootstrap 4 ( https://github.com/twbs/bootstrap )
+  Flex-carousel ( https://github.com/tightcode/flex-carousel )
+  Zennav ( https://github.com/tightcode/zennav )
+How to configure and install it
+  1. Download and extract included files
+
+An example of how to use it or get it running
+  https://tightcode.github.io/zenplate
+
+The license that the project is offered under
+	The MIT License
+
+Contributing
+	Author: tightcode
+			Github: https://github.com/tightcode
+			Email: tightcodedev@gmail.com
