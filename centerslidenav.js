@@ -1,9 +1,9 @@
-/* Centerslidenav 0.1.2 ( https://github.com/tightcode/centerslidenav ) */
+/* Centerslidenav 0.1.3 ( https://github.com/tightcode/centerslidenav ) */
 // changed breakpoint from md to lg
 
 
 
-/* Slidenav 4.0.0-alpha.3 ( https://github.com/tightcode/slidenav ) */
+/* Slidenav 4.0.0-alpha.4 ( https://github.com/tightcode/slidenav ) */
 
 // CSS media feature is used to detect if the user has requested that the system minimize the amount of animation or motion it uses
 var mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -18,7 +18,12 @@ var slideSpeedInit = function () {
 };
 
 window.addEventListener("load", slideSpeedInit);
-mediaQuery.addListener(slideSpeedInit);
+if (mediaQuery.addEventListener) {
+  mediaQuery.addEventListener("change", slideSpeedInit);
+}
+else if (mediaQuery.attachEvent) {
+  mediaQuery.attachEvent("change", slideSpeedInit);
+}
 
 // Jquery slide effect
 $('.jq-slide').on('show.bs.dropdown', function() {
@@ -30,7 +35,7 @@ $('.jq-slide').on('hide.bs.dropdown', function() {
 
 // JqueryUI slide effect
 $('.jqui-slide').on('show.bs.dropdown', function() {
-  if (window.matchMedia("(max-width: 991.98px)").matches) {
+  if (window.matchMedia("(max-width: 767.98px)").matches) {
     $(this).find('.dropdown-menu').first().stop(true, true).slideDown(slideSpeed);
   } else {
     $(this).find('.dropdown-menu').first().stop(true, true).show("slide", {
@@ -39,11 +44,11 @@ $('.jqui-slide').on('show.bs.dropdown', function() {
   }
 });
 $('.jqui-slide').on('hide.bs.dropdown', function() {
-  if (window.matchMedia("(max-width: 991.98px)").matches) {
+  if (window.matchMedia("(max-width: 767.98px)").matches) {
     $(this).find('.dropdown-menu').first().stop(true, true).slideUp(slideSpeed);
   } else {
     $(this).find('.dropdown-menu').first().stop(true, true).hide("slide", {
       direction: 'up'
     }, slideSpeed);
   }
-});
+});	
