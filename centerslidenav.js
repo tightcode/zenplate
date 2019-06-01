@@ -35,7 +35,7 @@ $('.jq-slide').on('hide.bs.dropdown', function() {
 
 // JqueryUI slide effect
 $('.jqui-slide').on('show.bs.dropdown', function() {
-  if (window.matchMedia("(max-width: 767.98px)").matches) {
+  if (window.matchMedia("(max-width: 991.98px)").matches) {
     $(this).find('.dropdown-menu').first().stop(true, true).slideDown(slideSpeed);
   } else {
     $(this).find('.dropdown-menu').first().stop(true, true).show("slide", {
@@ -44,7 +44,7 @@ $('.jqui-slide').on('show.bs.dropdown', function() {
   }
 });
 $('.jqui-slide').on('hide.bs.dropdown', function() {
-  if (window.matchMedia("(max-width: 767.98px)").matches) {
+  if (window.matchMedia("(max-width: 991.98px)").matches) {
     $(this).find('.dropdown-menu').first().stop(true, true).slideUp(slideSpeed);
   } else {
     $(this).find('.dropdown-menu').first().stop(true, true).hide("slide", {
